@@ -1,0 +1,184 @@
+import urllib
+import cv2
+from mss.linux import MSS as mss
+import PIL
+import time
+import pyautogui
+import imutils
+import mss
+import numpy
+import pyautogui
+import random
+import os
+import sys
+import threading
+import keyboard as kb
+import random
+import pynput
+from pynput.mouse import Controller
+from pynput import keyboard
+from tkinter import *
+from playsound import playsound
+
+primanka = "img\\primanka.png"
+poplavok = "img\\poplavok2.png"
+udochka3 = "img\\mk3.png"
+
+keyboardd = keyboard.Controller()
+mouse = Controller()
+
+dolgota = 0
+test_item1 = 0
+
+
+
+
+   
+
+color_yellow = (0,255,255)
+
+
+nazhivka = "img\\primanka.png"
+udochka = "img\\mk3.png"
+monitor_width, monitor_height = pyautogui.size()
+
+
+
+
+
+
+def klick():
+   monitor_width, monitor_height = pyautogui.size()
+   mouse.position = (random.uniform(int(monitor_width/3+600),int(monitor_width/2+600)),random.uniform(int(monitor_height/3),int(monitor_height/2)))
+   mouse.click(pynput.mouse.Button.left,1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+def zakinut():
+    stop()
+    
+    monitor_width, monitor_height = pyautogui.size()
+    mouse.position = (random.uniform(int(monitor_width/3+600),int(monitor_width/2+600)),random.uniform(int(monitor_height/3),int(monitor_height/2)))
+    mouse.click(pynput.mouse.Button.left,random.randint(1,2))
+    time.sleep(random.uniform(0.1,0.3))
+    stop()
+    keyboardd.press("i")
+    time.sleep(random.uniform(0.06,0.15))
+    keyboardd.release("i")
+    stop()
+    time.sleep(random.uniform(0.4,0.5))
+    stop()
+    try:
+       pyautogui.click(udochka)
+    except:
+       pass
+    time.sleep(random.uniform(0.2,0.3))
+    stop()
+    try:
+       pyautogui.click(nazhivka)
+    except:
+       playsound('C://new//2-4-10021.mp3')
+    time.sleep(random.uniform(0.2,0.3))
+    stop()
+    mouse.click(pynput.mouse.Button.left,random.randint(1,2))
+    time.sleep(random.uniform(0.2,0.3))
+    mouse.click(pynput.mouse.Button.left,random.randint(1,2))
+    time.sleep(random.uniform(0.2,0.3))
+    stop()
+
+                   
+
+
+
+def process_image(original_image):
+
+    processed_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
+
+    processed_image = cv2.Canny(processed_image, threshold1=200, threshold2=300)
+    return processed_image
+
+
+def zakinutt():
+    if kb.is_pressed('e') == True:
+        zakinut()
+
+def stop():
+    if kb.is_pressed('m') == True:
+        print('Nazhal Knopku')
+        sys.exit()
+
+
+
+
+
+
+
+
+
+def ss_more():
+    while True:
+       stop()
+
+       global dolgota
+       global vremja
+       op = 1
+       ob = 1
+       vremja = 1
+       with mss.mss() as sct:
+           monitor_width, monitor_height = pyautogui.size()
+           monitor = {"top": 0, "left": 0, "width": monitor_width+100, "height": monitor_height+100}
+
+           while "Screen capturing":
+               if kb.is_pressed('m') == True:
+
+                   sys.exit()
+               elif kb.is_pressed('e') == True:
+
+                   zakinut()
+               else:
+                   last_time = time.time()
+
+                   img = numpy.array(sct.grab(monitor))
+                   template = cv2.imread(poplavok, cv2.IMREAD_GRAYSCALE)
+                   w, h = template.shape[::-1]
+
+                   gray_frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                   res = cv2.matchTemplate(gray_frame, template, cv2.TM_CCOEFF_NORMED)
+                   threshold = .8
+                   loc = numpy.where(res >= threshold)
+                   op += 1
+                   ob +=1
+                   zakinutt()
+                   print (op)
+                   for pt in zip(*loc[::-1]):  # Switch collumns and rows
+                       cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+                       barada = cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+                       dolgota = 0
+                       dolgota = len(barada)
+                       dolgota1 = len(barada)
+                       stop()
+               while dolgota != 0:
+                  vremja = op
+                  dolgota = 0
+                  klick()
+                     
+                     
+
+               if op-vremja>10 and op - vremja<12:
+                   zakinut()
+                   dolgota = 0
+                   dolgota1 = 0
+
+      
+
+ss_more()
