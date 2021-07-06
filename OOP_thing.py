@@ -25,16 +25,6 @@ class FishingBot():
         self.monitor_width, self.monitor_height = pyautogui.size()
         self.counter1 = 0
 
-
-
-    # def process_image(self, original_image):
-    #     processed_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
-    #
-    #     processed_image = cv2.Canny(processed_image, threshold1=200, threshold2=300)
-    #     return processed_image
-
-
-
     def mouse_starting_position(self):
         self.mouse.position = (random.uniform(int(self.monitor_width / 3 + 600), int(self.monitor_width / 2 + 600)),
                                random.uniform(int(self.monitor_height / 3), int(self.monitor_height / 2)))
@@ -83,7 +73,6 @@ class FishingBot():
             print('Nazhal Knopku')
             sys.exit()
 
-
     def start_more(self):
         while True:
             op = 1
@@ -118,8 +107,6 @@ class FishingBot():
                     if op - vremja > 10 and op - vremja < 12:
                         self.zakinut()
                         self.counter1  = 0
-
-
 
 boteg = FishingBot()
 
