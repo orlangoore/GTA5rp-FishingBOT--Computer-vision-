@@ -44,8 +44,7 @@ class FishingBot():
 
 
     def klick(self):
-        pyautogui.moveTo(random.uniform(int(self.monitor_width / 3 + 600), int(self.monitor_width / 2 + 600)),
-                               random.uniform(int(self.monitor_height / 3), int(self.monitor_height / 2)))
+        self.mouse_starting_position()
         self.mouse.click(pynput.mouse.Button.left, 1)
 
     def click_the_rod(self):
@@ -98,7 +97,7 @@ class FishingBot():
             sys.exit()
 
 
-    def ss_more(self):
+    def start_more(self):
         while True:
             op = 1
             vremja = 1
@@ -137,7 +136,7 @@ class FishingBot():
 
 boteg = FishingBot()
 
-boteg.ss_more()
+boteg.start_more()
 
 
 
