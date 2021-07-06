@@ -1,7 +1,6 @@
 
 import cv2
 from mss.linux import MSS as mss
-import time
 import pyautogui
 import mss
 import numpy
@@ -14,8 +13,7 @@ import random
 import pynput
 from pynput.mouse import Controller
 from pynput import keyboard
-from tkinter import *
-from playsound import playsound
+
 
 
 
@@ -40,8 +38,6 @@ class FishingBot():
     def mouse_starting_position(self):
         self.mouse.position = (random.uniform(int(self.monitor_width / 3 + 600), int(self.monitor_width / 2 + 600)),
                                random.uniform(int(self.monitor_height / 3), int(self.monitor_height / 2)))
-
-
 
     def klick(self):
         self.mouse_starting_position()
@@ -69,7 +65,6 @@ class FishingBot():
         except:
             self.click_the_menu()
 
-
     def zakinut(self):
         self.mouse_starting_position()
         self.mouse.click(pynput.mouse.Button.left, random.randint(1, 2))
@@ -82,14 +77,6 @@ class FishingBot():
         time.sleep(random.uniform(1, 3))
         self.click_the_menu()
         time.sleep(random.uniform(0.2, 0.3))
-
-
-
-
-    def zakinutt(self):
-        if kb.is_pressed('e') == True:
-            self.zakinut()
-
 
     def stop(self):
         if kb.is_pressed('m') == True:
